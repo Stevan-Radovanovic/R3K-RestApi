@@ -1,35 +1,42 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Req } from '@nestjs/common';
+import { Dynasty } from 'src/interfaces/dynasty.interface';
 import { CreateDynastyDTO } from './dto/create-dynasty.dto';
 import { UpdateDynastyDto } from './dto/update-dynasty.dto';
+import { DynastiesService } from './dynasties.service';
 
 @Controller('dynasties')
 export class DynastiesController {
 
+    constructor(private dynastyService: DynastiesService) { }
+
     @Get('getAll')
     @HttpCode(240)
-    findAll(): string {
-        return 'Returns all dynasties';
+    async findAll(): Promise<Dynasty[]> {
+        return this.dynastyService.findAll();
     }
 
     @Post('create')
     @HttpCode(241)
-    createDynasty(@Body() dynastyDto: CreateDynastyDTO): string {
-        return 'Creates a new dynasty';
+    async createDynasty(@Body() dynastyDto: CreateDynastyDTO) {
+        return this.dynastyService.create(dynastyDto);
     }
 
     @Get('get/:id')
-    findOne(@Param('id') id: string): string {
-        return `Returns one selected dynasty`;
+    @HttpCode(240)
+    async findOne(@Param('id') id: string): Promise<Dynasty> {
+        return this.dynastyService.find(id);
     }
 
-    @Put(':id')
-    update(@Param('id') id: string, @Body() dynasty: UpdateDynastyDto) {
-      return `Updates the selected dynasty`;
+    @Put('update/:id')
+    @HttpCode(242)
+    async update(@Param('id') id: string, @Body() dynasty: UpdateDynastyDto) {
+        this.dynastyService.update(id, dynasty);
     }
-  
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-      return `Deletes the selected dynasty`;
+
+    @Delete('delete/:id')
+    @HttpCode(243)
+    async remove(@Param('id') id: string) {
+        this.dynastyService.delete(id);
     }
 
 }
