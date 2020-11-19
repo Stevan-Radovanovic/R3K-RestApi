@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Dynasty } from 'src/interfaces/dynasty.interface';
+import { Dynasty } from 'src/dynasties/interfaces/dynasty.interface';
 
 @Injectable()
 export class DynastiesService {

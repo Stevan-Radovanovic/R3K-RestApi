@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Req } from '@nestjs/common';
-import { Dynasty } from 'src/interfaces/dynasty.interface';
+import { Dynasty } from 'src/dynasties/interfaces/dynasty.interface';
 import { CreateDynastyDTO } from './dto/create-dynasty.dto';
 import { UpdateDynastyDto } from './dto/update-dynasty.dto';
 import { DynastiesService } from './dynasties.service';
