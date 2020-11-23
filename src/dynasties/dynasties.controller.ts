@@ -17,7 +17,7 @@ export class DynastiesController {
 
     @Post('create')
     @HttpCode(241)
-    async createDynasty(@Body() dynastyDto: CreateDynastyDTO) {
+    async createDynasty(@Body() dynastyDto: CreateDynastyDTO): Promise<Dynasty> {
         return this.dynastyService.create(dynastyDto);
     }
 

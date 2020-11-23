@@ -1,16 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { DynastyLoggerMiddleware } from 'src/common/middleware/dynasty-logger.middleware';
 import { Dynasty } from 'src/dynasties/interfaces/dynasty.interface';
+import { CreateDynastyDTO } from './dto/create-dynasty.dto';
+import { Dynasty as DynastyClass, DynastyDocument } from './dynasty.schema';
 
 @Injectable()
 export class DynastiesService {
     private dynasties: Dynasty[] = [];
 
-    create(dynasty: Dynasty) {
-        this.dynasties.push(dynasty);
+    constructor(@InjectModel(DynastyClass.name) private dynastyModel: Model<DynastyDocument>) {}
+
+    async create(dynasty: Dynasty): Promise<Dynasty> {
+        const createdCat = new this.dynastyModel(dynasty);
+        return createdCat.save();
     }
 
-    findAll(): Dynasty[] {
-        return this.dynasties;
+    async findAll(): Promise<Dynasty[]> {
+        return this.dynastyModel.find().exec();
     }
 
     update(id: string, dynasty: Dynasty) {
