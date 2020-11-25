@@ -13,8 +13,8 @@ export class DynastiesService {
     constructor(@InjectModel(DynastyClass.name) private dynastyModel: Model<DynastyDocument>) {}
 
     async create(dynasty: Dynasty): Promise<Dynasty> {
-        const createdCat = new this.dynastyModel(dynasty);
-        return createdCat.save();
+        const createdDynasty = new this.dynastyModel(dynasty);
+        return createdDynasty.save();
     }
 
     async findAll(): Promise<Dynasty[]> {
