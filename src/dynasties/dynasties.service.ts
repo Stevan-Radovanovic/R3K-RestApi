@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { DynastyLoggerMiddleware } from 'src/common/middleware/dynasty-logger.middleware';
 import { Dynasty } from 'src/dynasties/interfaces/dynasty.interface';
-import { CreateDynastyDTO } from './dto/create-dynasty.dto';
 import { Dynasty as DynastyClass, DynastyDocument } from './dynasty.schema';
 
 @Injectable()
@@ -21,9 +19,8 @@ export class DynastiesService {
         return this.dynastyModel.find().exec();
     }
 
-    update(id: string, dynasty: Dynasty) {
-        const index = this.dynasties.findIndex((dynasty) => { });
-        this.dynasties[index] = dynasty;
+   async update(id: string, dynasty: Dynasty): Promise<Dynasty> {
+        return this.dynastyModel.findByIdAndUpdate(id,dynasty).setOptions({new: true}).exec();
     }
 
     delete(id: string) {

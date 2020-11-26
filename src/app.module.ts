@@ -6,8 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [DynastiesModule,
-    MongooseModule.forRoot('mongodb+srv://stevan:Stevan.1@tickitcluster-trhkx.mongodb.net/warriors?retryWrites=true&w=majority', 
-    { useNewUrlParser: true })],
+    MongooseModule.forRoot('mongodb+srv://stevan:Stevan.1@tickitcluster-trhkx.mongodb.net/warriors?retryWrites=true&w=majority',
+      { useNewUrlParser: true }),
+  ],
   controllers: [],
   providers: [],
 })

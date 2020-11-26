@@ -29,8 +29,8 @@ export class DynastiesController {
 
     @Put('update/:id')
     @HttpCode(242)
-    async update(@Param('id') id: string, @Body() dynasty: UpdateDynastyDto) {
-        this.dynastyService.update(id, dynasty);
+    async update(@Param('id') id: string, @Body() dynasty: UpdateDynastyDto): Promise<Dynasty> {
+        return this.dynastyService.update(id, dynasty);
     }
 
     @Delete('delete/:id')
