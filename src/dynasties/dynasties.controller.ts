@@ -35,8 +35,8 @@ export class DynastiesController {
 
     @Delete('delete/:id')
     @HttpCode(243)
-    async remove(@Param('id') id: string) {
-        this.dynastyService.delete(id);
+    async remove(@Param('id') id: string): Promise<Dynasty> {
+        return this.dynastyService.delete(id);
     }
 
 }

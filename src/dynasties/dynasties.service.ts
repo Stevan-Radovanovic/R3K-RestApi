@@ -23,12 +23,11 @@ export class DynastiesService {
         return this.dynastyModel.findByIdAndUpdate(id,dynasty).setOptions({new: true}).exec();
     }
 
-    delete(id: string) {
-        this.dynasties = this.dynasties.filter((dynasty) => { });
+    async delete(id: string): Promise<Dynasty> {
+        return this.dynastyModel.findByIdAndDelete(id).exec();
     }
 
-    find(id: string): Dynasty {
-        const index = this.dynasties.findIndex((dynasty) => { });
-        return this.dynasties[index];
+    async find(id: string): Promise<Dynasty> {
+        return this.dynastyModel.findById(id).exec();
     }
 }
