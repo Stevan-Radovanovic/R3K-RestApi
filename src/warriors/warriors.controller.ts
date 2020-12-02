@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 import { WarriorsService } from './warriors.service';
 import { CreateWarriorDto } from './dto/create-warrior.dto';
 import { UpdateWarriorDto } from './dto/update-warrior.dto';
+import { ChangeWeaponDto } from './dto/change-weapon.dto';
 
 @Controller('warriors')
 export class WarriorsController {
@@ -9,28 +10,33 @@ export class WarriorsController {
 
   //TODO - Level Up, Change Weapon separate routes
 
-  @Post()
+  @Post('create')
+  @HttpCode(241)
   create(@Body() createWarriorDto: CreateWarriorDto) {
     return this.warriorsService.create(createWarriorDto);
   }
 
-  @Get()
+  @Get('getAll')
+  @HttpCode(240)
   findAll() {
     return this.warriorsService.findAll();
   }
 
-  @Get(':id')
+  @Get('get/:id')
+  @HttpCode(240)
   findOne(@Param('id') id: string) {
-    return this.warriorsService.findOne(+id);
+    return this.warriorsService.findOne(id);
   }
 
-  @Put(':id')
+  @Put('fullUpdate/:id')
+  @HttpCode(242)
   update(@Param('id') id: string, @Body() updateWarriorDto: UpdateWarriorDto) {
-    return this.warriorsService.update(+id, updateWarriorDto);
+    return this.warriorsService.update(id, updateWarriorDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
+  @HttpCode(243)
   remove(@Param('id') id: string) {
-    return this.warriorsService.remove(+id);
+    return this.warriorsService.remove(id);
   }
 }

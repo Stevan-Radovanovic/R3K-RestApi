@@ -6,7 +6,6 @@ import { Dynasty as DynastyClass, DynastyDocument } from './dynasty.schema';
 
 @Injectable()
 export class DynastiesService {
-    private dynasties: Dynasty[] = [];
 
     constructor(@InjectModel(DynastyClass.name) private dynastyModel: Model<DynastyDocument>) {}
 

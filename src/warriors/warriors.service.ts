@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { ChangeWeaponDto } from './dto/change-weapon.dto';
 import { CreateWarriorDto } from './dto/create-warrior.dto';
 import { UpdateWarriorDto } from './dto/update-warrior.dto';
+import { Warrior, WarriorDocument } from './warriors.schema';
 
 @Injectable()
 export class WarriorsService {
-  create(createWarriorDto: CreateWarriorDto) {
-    return 'This action adds a new warrior';
+
+  constructor(@InjectModel(Warrior.name) private warriorModel: Model<WarriorDocument>) { }
+
+  async create(warrior: CreateWarriorDto): Promise<Warrior> {
+    const createdDynasty = new this.warriorModel(warrior);
+    return createdDynasty.save();
   }
 
-  findAll() {
-    return `This action returns all warriors`;
+  async findAll(): Promise<Warrior[]> {
+    return this.warriorModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} warrior`;
+  async findOne(id: string): Promise<Warrior> {
+    return this.warriorModel.findById(id).exec();
   }
 
-  update(id: number, updateWarriorDto: UpdateWarriorDto) {
-    return `This action updates a #${id} warrior`;
+  async update(id: string, warrior: UpdateWarriorDto): Promise<Warrior> {
+    return this.warriorModel.findByIdAndUpdate(id, warrior).setOptions({ new: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} warrior`;
+  async remove(id: string): Promise<Warrior> {
+    return this.warriorModel.findByIdAndDelete(id).exec();
   }
+
 }
