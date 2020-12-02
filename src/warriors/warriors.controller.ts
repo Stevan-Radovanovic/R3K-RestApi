@@ -8,8 +8,6 @@ import { ChangeWeaponDto } from './dto/change-weapon.dto';
 export class WarriorsController {
   constructor(private readonly warriorsService: WarriorsService) {}
 
-  //TODO - Level Up, Change Weapon separate routes
-
   @Post('create')
   @HttpCode(241)
   create(@Body() createWarriorDto: CreateWarriorDto) {
@@ -28,7 +26,7 @@ export class WarriorsController {
     return this.warriorsService.findOne(id);
   }
 
-  @Put('fullUpdate/:id')
+  @Put('update/:id')
   @HttpCode(242)
   update(@Param('id') id: string, @Body() updateWarriorDto: UpdateWarriorDto) {
     return this.warriorsService.update(id, updateWarriorDto);
